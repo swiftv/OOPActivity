@@ -14,7 +14,7 @@ class animal:
     def set_arrival_date(self, data):
         self.arrival_date = data
     def get_attributes(self):
-        return self.name, self.classification, self.arrival_date
+        return [self.name, self.classification, self.arrival_date]
 
 class dog(animal):
     is_trained = False
@@ -23,13 +23,16 @@ class dog(animal):
         self.is_trained = data
     def set_favourite_toy(self, data):
         self.favourite_toy = data
+    def get_attributes(self):
+        return [self.name, self.classification, self.arrival_date, self.is_trained, self.favourite_toy]
 
 class cat(animal):
     indoor_only = False
 
     def set_indoor_only(self, data):
         self.indoor_only = data
-
+    def get_attributes(self):
+        return [self.name, self.classification, self.arrival_date, self.indoor_only]
 #subprograms
 
 
@@ -56,30 +59,31 @@ def new_animal():
             new_dog()
         case "cat":
             new_cat()
-        case _:
-            print("Unknown animal type. Please enter 'dog' or 'cat'.") 
-    animal_name = input("Enter the name of the animal: ")
-    arrived = input("Enter the date of the arrival")
-    animal_object.set_type(animal_type)
-    animal_object.set_name(animal_name)
-    animal_object.set_arrival_date(arrived)
-    rescue.append(animal_object)
-    print("Animal added successfully!")
-
+    
 def new_dog():
     animal_object = dog()
+    animal_name = input("Enter the name of the animal: ")
+    arrived = input("Enter the date of the arrival")
     is_trained = input("Is the dog trained? (yes/no): ").lower() == "yes"
     favourite_toy = input("Enter the dog's favourite toy: ")
+    animal_object.set_name(animal_name)
+    animal_object.set_type("dog")
+    animal_object.set_arrival_date(arrived)
     animal_object.set_is_trained(is_trained)
     animal_object.set_favourite_toy(favourite_toy)
     rescue.append(animal_object)  
 
 def new_cat():
     animal_object = cat()
+    animal_name = input("Enter the name of the animal: ")
+    arrived = input("Enter the date of the arrival")
     indoor_only = input("Is the cat indoor only? (yes/no): ").lower() == "yes"
+    animal_object.set_name(animal_name)
+    animal_object.set_type("cat")
+    animal_object.set_arrival_date(arrived)
     animal_object.set_indoor_only(indoor_only)
     rescue.append(animal_object)
-    
+
 #output the animals in the rescue
 def output_animals():
     for animal in rescue:
