@@ -1,5 +1,5 @@
 #Animal rescue centre program
-
+import json
 #class definitions
 #animal class 
 class animal:
@@ -44,12 +44,15 @@ def menu():
         print("1. New Animal")
         print("2. Output animals")
         print("3. Quit")
+        print("4. Save animals")
         option = input(":")
         match option:
             case "1":
                 new_animal()
             case "2":
                 output_animals()
+            case "4":
+                save_animals()  
 
 #add a a new animal to add to the rescue
 def new_animal():
@@ -89,6 +92,18 @@ def output_animals():
     for animal in rescue:
         print(animal.get_attributes())
 
+#save the animals to a json file
+def save_animals():
+    if not rescue:
+        print("No animals to save.")
+        return
+    with open("animals.json", "w") as file:
+        json.dump([animal.get_attributes() for animal in rescue], file)
+    print("Animals saved to animals.json")
+
+
 #main program
 rescue = []
 menu()
+
+
